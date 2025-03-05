@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>War of Cities</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>War of Cities</h1>
+    <div id="game-info">
+        <div class="player" id="player1">
+            <h2>Player 1</h2>
+            <p>Health: <span id="health1">100</span></p>
+            <p>Military: <span id="military1">3</span></p>
+        </div>
+        <div class="player" id="player2">
+            <h2>Player 2</h2>
+            <p>Health: <span id="health2">100</span></p>
+            <p>Military: <span id="military2">3</span></p>
+        </div>
+    </div>
+    
+    <div id="question-section">
+        <p id="question-text"></p>
+        <input type="text" id="answer" placeholder="Your answer">
+        <button onclick="submitAnswer()">Submit</button>
+    </div>
+
+    <p id="result"></p>
+    <button id="next-turn" onclick="nextTurn()" disabled>Next Turn</button>
+
+    <script src="questions.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

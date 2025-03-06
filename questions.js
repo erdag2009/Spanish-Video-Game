@@ -1,6 +1,15 @@
 const questions = [
+    { type: "grammar", question: "Translate 'We have to run': _______ __ ____", answer: "tenemos que correr" },
+    { type: "grammar", question: "'Hace que' expresión de tiempo: ___ ___ ___ que el usa la computadora (he's been using the computer for two hours", answer: "Hace dos horas" },
+    { type: "grammar", question: "Translate: 'I had won'", answer: "había ganado" },
+    { type: "grammar", question: "Saber o conocer? 'Yo _____ la probación de China.", answer: "sabo"},
     { type: "grammar", question: "Use hacer in present perfect: ___ muchas personas en el evento anoche.", answer: "he hecho" },
+    { type: "verbs", question: "¿Que es la forma infinitiva de 'hay'?", answer: "haber"},
+    { type: "verbs", question: "¿Cuál verbo es 'to be able to'?", answer: "poder"},
+    { type: "verbs", question: "Escribe 'quiero' en Inglés, incluso el sujeto.", answer: "I want"},
+    { type: "verbs", question: "Escribe 'venimos' en Inglés, incluso el sujeto.", answer: "We come"},
+    { type: "verbs", question: "Cumplir la frase: Me _____ la música pop.(I love pop music)", answer: "encanta"},
     { type: "verbs", question: "Complete using conocer: ___ tu a alguien que hable tres idiomas?", answer: "conoces" },
-    { type: "conversation", question: "How do you say 'Don't watch Moana' in Spanish?", answer: "No mires Moana" },
+    //{ type: "conversation", question: "How do you say 'Don't watch Moana' in Spanish?", answer: "No mires Moana" },
     { type: "grammar", question: "Complete: Los limones __ ____ aquí.", answer: "son vendidos" },
 ];

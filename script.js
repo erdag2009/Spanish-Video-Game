@@ -53,3 +53,8 @@ function updateUI() {
     document.getElementById("health2").textContent = playerHealth[2];
     document.getElementById("military2").textContent = playerMilitary[2];
 }
+
+/* save: git add .
+         git commit -m "changes made"
+         git push origin main
+*/

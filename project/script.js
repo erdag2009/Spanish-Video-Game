@@ -58,6 +58,7 @@ function updateUI() {
 
 function updateMilitary(amount){
     playerMilitary[currentTurn] += amount;
+    updateUI();
 }
 
 /* save: git add .

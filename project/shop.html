@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop - War of Cities</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Shop</h1>
+
+    <div id="shop">
+        <h2>Defensive Upgrades</h2>
+        <ul>
+            <li><button onclick="buyItem('barricade')">Barricade: +1 Defense</button></li>
+            <li><button onclick="buyItem('fortress')">Fortress: +2 Defense</button></li>
+            <li><button onclick="buyItem('spellShield')">Spell Shield: Blocks 10% Damage</button></li>
+        </ul>
+
+        <h2>Offensive Upgrades</h2>
+        <ul>
+            <li><button onclick="buyItem('soldier')">Soldier: +1 Military</button></li>
+            <li><button onclick="buyItem('knight')">Knight: +2 Military</button></li>
+            <li><button onclick="buyItem('warElephant')">War Elephant: +3 Military</button></li>
+            <li><button onclick="buyItem('armoredWarBears')">Armored War Bears: +4 Military</button></li>
+        </ul>
+
+        <h2>Other Items</h2>
+        <ul>
+            <li><button onclick="buyItem('tradingCart')">Trading Cart: +5 Funds Every Turn</button></li>
+            <li><button onclick="buyItem('business')">Business: +10 Funds Every Turn</button></li>
+            <li><button onclick="buyItem('witch')">Witch: Single Use, Reroll Move Options</button></li>
+        </ul>
+
+        <h2>Your Coins: <span id="coinCount">100</span></h2>
+    </div>
+
+    <script src="shop.js"></script>
+</body>
+</html>

@@ -53,3 +53,4 @@ function updateUI() {
     document.getElementById("health2").textContent = playerHealth[2];
     document.getElementById("military2").textContent = playerMilitary[2];
 }
+

@@ -4,6 +4,7 @@ const DAMAGE_ON_WRONG_ANSWER = 10;
 let currentTurn = 1;
 let playerHealth = { 1: 100, 2: 100 };
 let playerMilitary = { 1: 3, 2: 3 };
+let playerUpgrades = {1:{},2:{}};
 let currentQuestion = null;
 
 function startGame() {
@@ -32,6 +33,7 @@ function submitAnswer() {
 
 function attackOpponent() {
     const damage = playerMilitary[currentTurn] * DAMAGE_PER_MILITARY_UNIT;
+    
     playerHealth[currentTurn === 1 ? 2 : 1] -= damage;
     updateUI();
 }

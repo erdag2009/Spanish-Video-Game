@@ -1,19 +1,25 @@
 body {
   font-family: Arial, sans-serif;
-  text-align: center;
   background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
 }
 
 h1 {
-  font-size: 28px;
+  text-align: center;
+}
+
+.menu {
+  text-align: center;
+  margin-top: 20px;
 }
 
 .menu a {
   display: block;
-  margin: 10px;
-  font-size: 20px;
+  margin: 10px 0;
   text-decoration: none;
-  color: black;
+  color: #333;
+  font-size: 20px;
 }
 
 #game-info {
@@ -23,15 +29,16 @@ h1 {
 }
 
 .player {
-  border: 1px solid black;
-  padding: 10px;
-  background-color: white;
+  text-align: center;
 }
 
-#question-section {
-  margin-top: 20px;
+button {
+  padding: 10px 20px;
+  margin: 10px;
+  font-size: 16px;
+  cursor: pointer;
 }
 
 #next-turn {
-  margin-top: 10px;
+  margin-top: 20px;
 }

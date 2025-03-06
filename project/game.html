@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>War of Cities</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        #shop {
+            display: none; /* Initially hidden */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            padding-top: 50px;
+        }
+        #shop-content {
+            background: white;
+            margin: 0 auto;
+            padding: 20px;
+            width: 60%;
+            border-radius: 10px;
+            text-align: center;
+        }
+        #shop .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>War of Cities</h1>
+    <div id="game-info">
+        <div class="player" id="player1">
+            <h2>Player 1</h2>
+            <p>Health: <span id="health1">100</span></p>
+            <p>Military: <span id="military1">3</span></p>
+        </div>
+        <div class="player" id="player2">
+            <h2>Player 2</h2>
+            <p>Health: <span id="health2">100</span></p>
+            <p>Military: <span id="military2">3</span></p>
+        </div>
+    </div>
+
+
+    <button onclick="openShop()">Open Shop</button>
+
+
+    <div id="shop">
+        <div id="shop-content">
+            <span class="close-btn" onclick="closeShop()">X</span>
+            <h2>Shop</h2>
+            <div id="coinCount">Coins: 100</div>
+
+            <!-- Upgrades-->
+            <button onclick="buyItem('soldier')">Soldier (+1 military) - 15 Coins</button>
+            <button onclick="buyItem('knight')">Knight (+2 military) - 25 Coins</button>
+            <button onclick="buyItem('warElephant')">War Elephant (+3 military) - 40 Coins</button>
+            <button onclick="buyItem('armoredWarBears')">Armored War Bears (+4 military) - 50 Coins</button>
+            <button onclick="buyItem('tradingCart')">Trading Cart (+5 funds each turn) - 50 Coins</button>
+            <button onclick="buyItem('business')">Business (+10 funds each turn) - 80 Coins</button>
+            <button onclick="buyItem('witch')">Witch (reroll move) - 60 Coins</button>
+
+            <!-- items to buy-->
+            <button onclick="buyItem('dayAttack')">Day Attack (5% damage per military) - 20 Coins</button>
+            <button onclick="buyItem('nightAttack')">Night Attack (immune to watch tower) - 30 Coins</button>
+            <button onclick="buyItem('siege')">Siege (10% damage per military, lose 2 military) - 40 Coins</button>
+            <button onclick="buyItem('cannon')">Cannon (20% damage) - 50 Coins</button>
+            <button onclick="buyItem('catapult')">Catapult (10% damage) - 35 Coins</button>
+            <button onclick="buyItem('spyAttack')">Spy Attack (5% damage for each enemy military) - 60 Coins</button>
+            <button onclick="buyItem('fire')">Fire (removes half of enemy health) - 70 Coins</button>
+
+            <!-- Defense Items -->
+            <button onclick="buyItem('trap')">Trap (15% chance to stop enemy attack) - 25 Coins</button>
+            <button onclick="buyItem('wallRepair')">Wall Repair (heal 20%) - 30 Coins</button>
+            <button onclick="buyItem('shields')">Shields (blocks 10% damage) - 40 Coins</button>
+        </div>
+    </div>
+
+    <div id="question-section">
+        <p id="question-text"></p>
+        <input type="text" id="answer" placeholder="Your answer">
+        <button onclick="submitAnswer()">Submit</button>
+    </div>
+
+    <p id="result"></p>
+    <button id="next-turn" onclick="nextTurn()" disabled>Next Turn</button>
+
+    <script src="questions.js"></script>
+    <script src="script.js"></script>
+    <script src="shop.js"></script>
+
+    <script>
+        function openShop() {
+            document.getElementById("shop").style.display = "block"; // Show shop
+        }
+
+        function closeShop() {
+            document.getElementById("shop").style.display = "none"; // Hide shop
+        }
+    </script>
+</body>
+</html>

@@ -56,10 +56,12 @@ function updateUI() {
     document.getElementById("military2").textContent = playerMilitary[2];
 }
 
-<<<<<<< HEAD
-=======
+function updateMilitary(amount){
+    playerMilitary[currentTurn] += amount;
+    updateUI();
+}
+
 /* save: git add .
          git commit -m "changes made"
          git push origin main
 */
->>>>>>> refs/remotes/origin/main

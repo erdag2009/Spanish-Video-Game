@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practice Questions</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Practice Spanish Questions</h1>
+    <div id="question-section">
+        <p id="question-text"></p>
+        <input type="text" id="answer" placeholder="Your answer">
+        <button onclick="submitPracticeAnswer()">Submit</button>
+    </div>
+    <p id="result"></p>
+    <button onclick="newPracticeQuestion()">New Question</button>
+
+    <script src="questions.js"></script>
+    <script>
+        let currentPracticeQuestion = null;
+
+        function newPracticeQuestion() {
+            const randomIndex = Math.floor(Math.random() * questions.length);
+            currentPracticeQuestion = questions[randomIndex];
+
+            document.getElementById("question-text").textContent = currentPracticeQuestion.question;
+            document.getElementById("result").textContent = "";
+        }
+
+        function submitPracticeAnswer() {
+            const userAnswer = document.getElementById("answer").value.trim().toLowerCase();
+            if (userAnswer === currentPracticeQuestion.answer.toLowerCase()) {
+                document.getElementById("result").textContent = "Correct!";
+            } else {
+                document.getElementById("result").textContent = "Incorrect. The correct answer is: " + currentPracticeQuestion.answer;
+            }
+            document.getElementById("answer").value = "";
+        }
+
+        document.addEventListener("DOMContentLoaded", newPracticeQuestion);
+    </script>
+</body>
+</html>

@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="styles.css">
     <style>
         body {
-            background-image: url('spanish-background.jpg');
             background-size: cover;
             background-position: center;
             color: white;
@@ -90,7 +89,6 @@
             <input type="text" id="answer" placeholder="Your answer">
             <br>
             <button class="button" onclick="submitPracticeAnswer()" aria-label="Submit your answer">Submit</button>
-            <button class="button" onclick="newPracticeQuestion()" aria-label="Get a new practice question">New Question</button>
         </div>
         <p id="result"></p>
     </div>
@@ -110,6 +108,7 @@
 
             document.getElementById("question-text").textContent = currentPracticeQuestion.question;
             document.getElementById("result").textContent = "";
+            document.getElementById("answer").value = "";
         }
 
         function submitPracticeAnswer() {
@@ -117,11 +116,11 @@
             if (userAnswer === currentPracticeQuestion.answer.toLowerCase()) {
                 document.getElementById("result").textContent = "✅ Correct!";
                 document.getElementById("result").style.color = "lightgreen";
+                setTimeout(newPracticeQuestion, 1000);
             } else {
-                document.getElementById("result").textContent = "❌ Incorrect. The correct answer is: " + currentPracticeQuestion.answer;
+                document.getElementById("result").textContent = "❌ Incorrect. Try again!";
                 document.getElementById("result").style.color = "red";
             }
-            document.getElementById("answer").value = "";
         }
 
         document.addEventListener("DOMContentLoaded", newPracticeQuestion);

@@ -46,20 +46,30 @@ function buyItem(item) {
 }
 
 function applyItemEffect(itemData) {
-    if (itemData.effect === "military") {
-        military += itemData.value;
-    } else if (itemData.effect === "defense") {
-        increaseDefense(itemData.value);
-    } else if (itemData.effect === "funds") {
-        increaseFunds(itemData.value);
-    } else if (itemData.effect === "reroll") {
-        rerollMoves();
-    } else if (itemData.effect === "offense") {
-        handleOffense(itemData);
-    } else if (itemData.effect === "health") {
-        increaseHealth(itemData.value);
-    } else if (itemData.effect === "shield") {
-        increaseShield(itemData.value);
+    switch(itemData.effect) {
+        case "military":
+            military += itemData.value;
+            break;
+        case "defense":
+            increaseDefense(itemData.value);
+            break;
+        case "funds":
+            increaseFunds(itemData.value);
+            break;
+        case "reroll":
+            rerollMoves();
+            break;
+        case "offense":
+            handleOffense(itemData);
+            break;
+        case "health":
+            increaseHealth(itemData.value);
+            break;
+        case "shield":
+            increaseShield(itemData.value);
+            break;
+        default:
+            console.error("Unknown effect:", itemData.effect);
     }
 }
 
@@ -72,7 +82,7 @@ function increaseDefense(value) {
 function increaseFunds(value) {
     coins += value;
     console.log(`Increased funds by ${value}`);
-    document.getElementById("coinCount").textContent = coins;
+    document.getElementById("coinCount").textContent = `Coins: ${coins}`;
 }
 
 function rerollMoves() {
@@ -84,6 +94,7 @@ function handleOffense(itemData) {
         itemData.count -= 1; // Decrease the count of available uses
         alert(`${itemData.description}`);
         console.log(`Offense item used: ${itemData.description}. Uses left: ${itemData.count}`);
+        updateUI(); // Ensure the UI is updated after using an offense item
     } else {
         alert(`No uses left for ${itemData.description}`);
     }
@@ -91,7 +102,7 @@ function handleOffense(itemData) {
 
 function increaseHealth(value) {
     health += value;
-    if (health > 100) health = 100; // Make sure health doesn't exceed 100
+    if (health > 100) health = 100; // Ensure health doesn't exceed 100
     console.log(`Increased health by ${value}`);
     document.getElementById("health").textContent = `Health: ${health}`;
 }
@@ -103,7 +114,7 @@ function increaseShield(value) {
 }
 
 function updateUI() {
-    document.getElementById("coinCount").textContent = coins;
+    document.getElementById("coinCount").textContent = `Coins: ${coins}`;
     document.getElementById("militaryCount").textContent = `Military: ${military}`;
     document.getElementById("defense").textContent = `Defense: ${defense}`;
     document.getElementById("health").textContent = `Health: ${health}`;

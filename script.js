@@ -8,6 +8,9 @@ let playerMilitary = { 1: 3, 2: 3 };
 let playerUpgrades = { 1: {}, 2: {} };
 let currentQuestion = null;
 let coins = 100;
+let isSinglePlayer = false;
+let playerShield = { 1: 0, 2: 0 };
+let playerDefense = { 1: 0, 2: 0 }; 
 
 const items = {
     // upgrades
@@ -39,6 +42,8 @@ const items = {
 };
 
 function startGame() {
+    const urlParams = new URLSearchParams(window.location.search);
+    isSinglePlayer = urlParams.get('mode') === 'single';
     askQuestion();
 }
 
@@ -78,6 +83,8 @@ function attackOpponent() {
     }
 
     let opponent = currentTurn === 1 ? 2 : 1;
+    damage = applyDefense(opponent, damage); // Apply defense effect
+    damage = applyShield(opponent, damage); // Apply shield effect
     playerHealth[opponent] = Math.max(0, playerHealth[opponent] - damage);
 
     updateUI();
@@ -85,16 +92,56 @@ function attackOpponent() {
 }
 
 function takeDamage() {
-    playerHealth[currentTurn] = Math.max(0, playerHealth[currentTurn] - DAMAGE_ON_WRONG_ANSWER);
+    let damage = DAMAGE_ON_WRONG_ANSWER;
+    damage = applyDefense(currentTurn, damage); // Apply defense effect
+    damage = applyShield(currentTurn, damage); // Apply shield effect
+    playerHealth[currentTurn] = Math.max(0, playerHealth[currentTurn] - damage);
     
     updateUI();
     checkGameOver();
 }
 
+function applyDefense(player, damage) {
+    if (playerDefense[player] > 0) {
+        const reducedDamage = damage * (1 - playerDefense[player] / 100);
+        console.log(`Defense reduced damage from ${damage} to ${reducedDamage}`);
+        return reducedDamage;
+    }
+    return damage;
+}
+
+function applyShield(player, damage) {
+    if (playerShield[player] > 0) {
+        const reducedDamage = damage * (1 - playerShield[player] / 100);
+        console.log(`Shield reduced damage from ${damage} to ${reducedDamage}`);
+        return reducedDamage;
+    }
+    return damage;
+}
+
 function nextTurn() {
     currentTurn = currentTurn === 1 ? 2 : 1;
     document.getElementById("next-turn").disabled = true;
-    askQuestion();
+    if (isSinglePlayer && currentTurn === 2) {
+        npcTurn();
+    } else {
+        askQuestion();
+    }
+}
+
+function npcTurn() {
+    // NPC logic for attacking
+    let damage = playerMilitary[2] * DAMAGE_PER_MILITARY_UNIT;
+    damage = applyDefense(1, damage); // Apply defense effect
+    damage = applyShield(1, damage); // Apply shield effect
+    playerHealth[1] = Math.max(0, playerHealth[1] - damage);
+    document.getElementById("result").textContent = "🤖 NPC attacks!";
+    updateUI();
+    checkGameOver();
+    setTimeout(() => {
+        currentTurn = 1;
+        askQuestion();
+    }, 2000); // Delay to simulate NPC thinking time
 }
 
 function checkGameOver() {
@@ -110,6 +157,8 @@ function checkGameOver() {
 function resetGame() {
     playerHealth = { 1: 100, 2: 100 };
     playerMilitary = { 1: 3, 2: 3 };
+    playerShield = { 1: 0, 2: 0 }; // Reset shields
+    playerDefense = { 1: 0, 2: 0 }; // Reset defenses
     currentTurn = 1;
     updateUI();
     askQuestion();
@@ -121,6 +170,10 @@ function updateUI() {
     document.getElementById("health2").textContent = playerHealth[2];
     document.getElementById("military2").textContent = playerMilitary[2];
     document.getElementById("coinCount").textContent = `Coins: ${coins}`;
+    document.getElementById("shield1").textContent = `Shield: ${playerShield[1]}%`;
+    document.getElementById("shield2").textContent = `Shield: ${playerShield[2]}%`;
+    document.getElementById("defense1").textContent = `Defense: ${playerDefense[1]}%`;
+    document.getElementById("defense2").textContent = `Defense: ${playerDefense[2]}%`;
 }
 
 function buyItem(item) {
@@ -164,8 +217,9 @@ function applyItemEffect(itemData) {
 }
 
 function increaseDefense(value) {
-    // Implement defense logic if needed
+    playerDefense[currentTurn] += value;
     console.log(`Increased defense by ${value}`);
+    document.getElementById(`defense${currentTurn}`).textContent = `Defense: ${playerDefense[currentTurn]}%`;
 }
 
 function increaseFunds(value) {
@@ -197,8 +251,9 @@ function increaseHealth(value) {
 }
 
 function increaseShield(value) {
-    // Implement shield logic if needed
+    playerShield[currentTurn] += value;
     console.log(`Shield increased by ${value}`);
+    document.getElementById(`shield${currentTurn}`).textContent = `Shield: ${playerShield[currentTurn]}%`;
 }
 
 // Debugging function to log element properties
@@ -225,4 +280,4 @@ function logElementProperties() {
     });
 }
 
-window.onload = logElementProperties;
+window.onload = startGame;

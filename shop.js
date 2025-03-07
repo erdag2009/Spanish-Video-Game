@@ -5,7 +5,7 @@ let health = 100;
 let shield = 0;
 
 const items = {
-    // Upgrades
+    // upgrades
     soldier: { cost: 15, effect: "military", value: 1 },
     knight: { cost: 25, effect: "military", value: 2 },
     warElephant: { cost: 40, effect: "military", value: 3 },
@@ -14,7 +14,7 @@ const items = {
     business: { cost: 80, effect: "funds", value: 10 },
     witch: { cost: 60, effect: "reroll", value: 1 },
 
-    // Offense
+    // offense
     dayAttack: { cost: 20, effect: "offense", value: 5, count: 5, description: "5% damage per military" },
     nightAttack: { cost: 30, effect: "offense", value: 5, count: 3, description: "5% damage per military, immune to watch tower" },
     siege: { cost: 40, effect: "offense", value: 10, count: 1, description: "10% damage per military, lose 2 military" },
@@ -34,7 +34,7 @@ function buyItem(item) {
     if (coins >= itemData.cost) {
         coins -= itemData.cost;
         applyItemEffect(itemData);
-        document.getElementById("coinCount").textContent = coins;
+        updateUI();
         alert(`${item} bought!`);
     } else {
         alert("Not enough coins.");
@@ -58,11 +58,13 @@ function applyItemEffect(itemData) {
 function increaseDefense(value) {
     defense += value;
     console.log(`Increased defense by ${value}`);
+    document.getElementById("defense").textContent = `Defense: ${defense}`; 
 }
 
 function increaseFunds(value) {
     coins += value;
     console.log(`Increased funds by ${value}`);
+    document.getElementById("coinCount").textContent = coins; 
 }
 
 function rerollMoves() {
@@ -71,8 +73,18 @@ function rerollMoves() {
 
 function handleOffense(itemData) {
     if (itemData.count > 0) {
+        itemData.count -= 1; // Decrease the count of available uses
         alert(`${itemData.description}`);
+        console.log(`Offense item used: ${itemData.description}. Uses left: ${itemData.count}`);
     } else {
         alert(`No uses left for ${itemData.description}`);
     }
+}
+
+function updateUI() {
+    document.getElementById("coinCount").textContent = coins;
+    document.getElementById("militaryCount").textContent = `Military: ${military}`;
+    document.getElementById("defense").textContent = `Defense: ${defense}`;
+    document.getElementById("health").textContent = `Health: ${health}`;
+    document.getElementById("shield").textContent = `Shield: ${shield}`;  
 }

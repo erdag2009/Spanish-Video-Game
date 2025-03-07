@@ -3,17 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Credits</title>
+    <title>Game Credits</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            background-image: url('battle-background.jpg'); /* Add a cool battle-themed background */
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            font-family: 'Garamond', serif; /* Medieval-style font */
+        }
+
+        .credits-container {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 15px;
+            width: 50%;
+            margin: auto;
+            margin-top: 50px;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            text-shadow: 2px 2px 5px black;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            font-size: 1.2em;
+            margin: 10px 0;
+        }
+
+        .back-button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-top: 20px;
+            background: #ffcc00;
+            color: black;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 10px;
+            transition: 0.3s;
+        }
+
+        .back-button:hover {
+            background: #ff9900;
+        }
+
+        /* Fade-in effect */
+        .fade-in {
+            opacity: 0;
+            animation: fadeIn 2s forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
 </head>
 <body>
-    <h1>Game Credits</h1>
-    <ul>
-        <li>Game Design: Aras Erdag & Nate Haselow</li>
-        <li>Programming: Aras Erdag & Nate Haselow</li>
-        <li>Spanish Questions: Aras Erdag & Nate Haselow</li>
-        <li>Inspiration: War Strategy Games + Spanish Learning</li>
-    </ul>
-    <a href="index.html">Back to Main Menu</a>
+    <div class="credits-container fade-in">
+        <h1>⚔️ Game Credits ⚔️</h1>
+        <ul>
+            <li><strong>Game Design:</strong> Aras Erdag & Nate Haselow</li>
+            <li><strong>Programming:</strong> Aras Erdag & Nate Haselow</li>
+            <li><strong>Spanish Questions:</strong> Aras Erdag & Nate Haselow</li>
+            <li><strong>Inspiration:</strong> War Strategy Games + Spanish Learning</li>
+        </ul>
+        <p>Special thanks to all who supported this project!</p>
+        <a href="index.html" class="back-button">🏠 Back to Main Menu</a>
+    </div>
 </body>
 </html>

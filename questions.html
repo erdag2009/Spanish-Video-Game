@@ -5,16 +5,95 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Practice Questions</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            background-image: url('spanish-background.jpg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+        }
+
+        .container {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 15px;
+            width: 60%;
+            margin: auto;
+            margin-top: 50px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        h1 {
+            font-size: 2.5em;
+            text-shadow: 2px 2px 5px black;
+        }
+
+        #question-text {
+            font-size: 1.5em;
+            margin: 15px 0;
+        }
+
+        input {
+            width: 80%;
+            padding: 10px;
+            font-size: 1.2em;
+            border-radius: 8px;
+            border: none;
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 10px;
+            background: #ffcc00;
+            color: black;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 10px;
+            transition: 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2em;
+        }
+
+        .button:hover {
+            background: #ff9900;
+        }
+
+        #result {
+            font-size: 1.3em;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+
+        /* Fade-in effect */
+        .fade-in {
+            opacity: 0;
+            animation: fadeIn 1s forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
 </head>
 <body>
-    <h1>Practice Spanish Questions</h1>
-    <div id="question-section">
-        <p id="question-text"></p>
-        <input type="text" id="answer" placeholder="Your answer">
-        <button onclick="submitPracticeAnswer()">Submit</button>
+    <div class="container fade-in">
+        <h1>🇪🇸 Practice Spanish Questions 🇪🇸</h1>
+        <div id="question-section">
+            <p id="question-text"></p>
+            <input type="text" id="answer" placeholder="Your answer">
+            <br>
+            <button class="button" onclick="submitPracticeAnswer()">Submit</button>
+            <button class="button" onclick="newPracticeQuestion()">New Question</button>
+        </div>
+        <p id="result"></p>
     </div>
-    <p id="result"></p>
-    <button onclick="newPracticeQuestion()">New Question</button>
 
     <script src="questions.js"></script>
     <script>
@@ -31,9 +110,11 @@
         function submitPracticeAnswer() {
             const userAnswer = document.getElementById("answer").value.trim().toLowerCase();
             if (userAnswer === currentPracticeQuestion.answer.toLowerCase()) {
-                document.getElementById("result").textContent = "Correct!";
+                document.getElementById("result").textContent = "✅ Correct!";
+                document.getElementById("result").style.color = "lightgreen";
             } else {
-                document.getElementById("result").textContent = "Incorrect. The correct answer is: " + currentPracticeQuestion.answer;
+                document.getElementById("result").textContent = "❌ Incorrect. The correct answer is: " + currentPracticeQuestion.answer;
+                document.getElementById("result").style.color = "red";
             }
             document.getElementById("answer").value = "";
         }

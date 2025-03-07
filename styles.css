@@ -1,44 +1,248 @@
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
+* {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
-h1 {
+body {
+  background-image: url('war-background.jpg');
+  background-size: cover;
+  background-position: center;
+  font-family: 'MedievalSharp', sans-serif;
+  color: #fff;
   text-align: center;
 }
 
-.menu {
+.container {
+  background: rgba(0, 0, 0, 0.8);
+  padding: 20px;
+  border-radius: 10px;
+  margin: 50px auto;
+  width: 60%;
+  box-shadow: 0px 0px 30px red;
+}
+
+.shop-header {
+  font-size: 3em;
+  text-shadow: 3px 3px 15px yellow;
+  margin-bottom: 20px;
+  color: #f4d03f;
+  text-transform: uppercase;
+}
+
+.upgrade-section {
+  margin-bottom: 30px;
+  text-align: left;
+}
+
+h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+  color: #f4d03f;
+  text-transform: uppercase;
+}
+
+.shop-btn {
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0;
+  background-color: #c0392b;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.shop-btn:hover {
+  background-color: #e74c3c;
+  transform: scale(1.05);
+}
+
+.shop-btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.coin-container {
   text-align: center;
   margin-top: 20px;
 }
 
-.menu a {
-  display: block;
-  margin: 10px 0;
-  text-decoration: none;
-  color: #333;
-  font-size: 20px;
+.coin-count {
+  font-size: 32px;
+  color: #28a745;
+  font-weight: bold;
+  background-color: #fff;
+  padding: 5px 15px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-#game-info {
-  display: flex;
-  justify-content: space-around;
-  margin-top: 20px;
+.health-bar {
+  width: 100%;
+  height: 20px;
+  background: darkgray;
+  border-radius: 5px;
+  margin-top: 5px;
+  overflow: hidden;
 }
 
-.player {
-  text-align: center;
+#health-bar1, #health-bar2 {
+  height: 100%;
+  width: 100%;
+  background: green;
+  transition: width 0.5s ease-in-out;
 }
 
-button {
+.war-button {
+  background: darkred;
+  color: white;
+  font-size: 1.2em;
   padding: 10px 20px;
-  margin: 10px;
-  font-size: 16px;
+  border: 2px solid black;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.war-button:hover {
+  background: black;
+  border: 2px solid red;
+  transform: scale(1.05);
+  box-shadow: 0px 0px 10px yellow;
+}
+
+#shop {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 1000;
+  padding-top: 50px;
+}
+
+#shop-content {
+  background: #222;
+  color: white;
+  margin: 0 auto;
+  padding: 20px;
+  width: 60%;
+  border-radius: 10px;
+  text-align: center;
+  border: 2px solid red;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 20px;
+  color: white;
   cursor: pointer;
 }
 
-#next-turn {
-  margin-top: 20px;
+button {
+  display: block;
+  margin: 10px auto;
+  padding: 10px;
+  width: 80%;
+  background: darkred;
+  color: white;
+  font-size: 1em;
+  border: 2px solid black;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  background: black;
+  border: 2px solid red;
+}
+
+@media (max-width: 768px) {
+  .container {
+      width: 90%;
+  }
+
+  .shop-header {
+      font-size: 2.5em;
+  }
+
+  .shop-btn {
+      font-size: 16px;
+  }
+}
+
+
+.shop-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.shop-items {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+}
+
+.shop-section {
+  background: rgba(0, 0, 0, 0.7);
+  border-radius: 15px;
+  box-shadow: 0px 0px 15px red;
+  padding: 20px;
+  width: 300px;
+  text-align: left;
+}
+
+.shop-section h2 {
+  font-size: 1.5em;
+  color: #f4d03f;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+}
+
+.shop-button {
+  background: darkred;
+  color: white;
+  font-size: 1.2em;
+  padding: 10px 20px;
+  border: 2px solid black;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+  margin: 10px 0;
+  border-radius: 5px;
+}
+
+.shop-button:hover {
+  background: black;
+  border: 2px solid gold;
+  transform: scale(1.05);
+  box-shadow: 0px 0px 10px yellow;
+}
+
+.shop-status {
+  margin-top: 30px;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 15px red;
+}
+
+.shop-status p {
+  font-size: 1.2em;
+  margin: 10px 0;
+  text-shadow: 1px 1px 5px yellow;
+}
+
+.shop-status h3 {
+  font-size: 1.5em;
+  text-transform: uppercase;
+  color: gold;
+  margin-bottom: 15px;
 }

@@ -21,6 +21,36 @@ body {
   box-shadow: 0px 0px 30px red;
 }
 
+/* Menu Styles */
+.menu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.menu a {
+  display: block;
+  margin: 10px 0;
+  padding: 10px 20px;
+  background-color: #c0392b;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 18px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  width: 80%; /* Ensure the buttons take up 80% of the container width */
+  text-align: center; /* Center the text inside the buttons */
+}
+
+.menu a:hover {
+  background-color: #e74c3c;
+  transform: scale(1.05);
+}
+
+.menu a:active {
+  background-color: #a93226;
+}
+
 .shop-header {
   font-size: 3em;
   text-shadow: 3px 3px 15px yellow;
@@ -189,8 +219,7 @@ button:hover {
 
 .shop-items {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  flex-direction: column; /* Change to column to ensure vertical scrolling */
   gap: 30px;
   max-height: 500px; /* Set a max height for the scrollable container */
   overflow-y: auto; /* Enable scrolling */
@@ -205,7 +234,7 @@ button:hover {
   border-radius: 15px;
   box-shadow: 0px 0px 15px red;
   padding: 20px;
-  width: 300px;
+  width: 100%; /* Ensure full width */
   text-align: left;
 }
 

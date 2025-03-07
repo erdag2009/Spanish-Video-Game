@@ -120,3 +120,30 @@ function updateUI() {
     document.getElementById("health").textContent = `Health: ${health}`;
     document.getElementById("shield").textContent = `Shield: ${shield}`;
 }
+
+// Debugging function to log element properties
+function logElementProperties() {
+    const shopContainer = document.querySelector('.shop-container');
+    const shopItems = document.querySelector('.shop-items');
+    const shopSections = document.querySelectorAll('.shop-section');
+
+    console.log('Shop Container:', {
+        height: shopContainer.clientHeight,
+        overflowY: getComputedStyle(shopContainer).overflowY
+    });
+
+    console.log('Shop Items:', {
+        height: shopItems.clientHeight,
+        overflowY: getComputedStyle(shopItems).overflowY
+    });
+
+    shopSections.forEach((section, index) => {
+        console.log(`Shop Section ${index + 1}:`, {
+            height: section.clientHeight,
+            overflowY: getComputedStyle(section).overflowY
+        });
+    });
+}
+
+// Call the debugging function on page load
+window.onload = logElementProperties;

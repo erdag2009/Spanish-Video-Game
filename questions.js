@@ -30,20 +30,20 @@ const questions = {
 };
 
 document.addEventListener("DOMContentLoaded", function () {
-    const gameMode = getGameMode();
-    let category = gameMode === 'single' ? 'grammar' : 'verbs'; 
-    loadRandomQuestion(category);
+    loadRandomQuestion();
 });
 
-function loadRandomQuestion(category) {
+function loadRandomQuestion() {
     const questionContainer = document.getElementById('question-section');
-    const selectedCategory = questions[category];
+    const categories = Object.keys(questions);
+    const randomCategory = categories[Math.floor(Math.random() * categories.length)];
+    const selectedCategory = questions[randomCategory];
 
     const randomIndex = Math.floor(Math.random() * selectedCategory.length);
     const currentQuestion = selectedCategory[randomIndex];
 
     questionContainer.innerHTML = `
-        <h2>${category.charAt(0).toUpperCase() + category.slice(1)} Question</h2>
+        <h2>${randomCategory.charAt(0).toUpperCase() + randomCategory.slice(1)} Question</h2>
         <p id="question-text"><strong>Q:</strong> ${currentQuestion.question}</p>
         <input type="text" id="user-answer" placeholder="Type your answer here">
         <button onclick="checkAnswer('${currentQuestion.answer.toLowerCase()}')">Submit</button>
@@ -58,13 +58,9 @@ function checkAnswer(correctAnswer) {
     if (userInput === correctAnswer) {
         resultText.textContent = "✅ Correct!";
         resultText.style.color = "lightgreen";
-        setTimeout(() => loadRandomQuestion(getGameMode() === 'single' ? 'grammar' : 'verbs'), 1000);
+        setTimeout(loadRandomQuestion, 1000);
     } else {
         resultText.textContent = "❌ Incorrect. Try again!";
         resultText.style.color = "red";
     }
-}
-
-function getGameMode() {
-    return localStorage.getItem('gameMode') || 'single';
 }

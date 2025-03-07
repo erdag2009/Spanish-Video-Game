@@ -9,8 +9,9 @@ let playerUpgrades = { 1: {}, 2: {} };
 let currentQuestion = null;
 let coins = 100;
 let isSinglePlayer = false;
-let playerShield = { 1: 0, 2: 0 };
-let playerDefense = { 1: 0, 2: 0 }; 
+let playerShield = { 1: 0, 2: 0 }; // Add shield for each player
+let playerDefense = { 1: 0, 2: 0 }; // Add defense for each player
+let consecutiveCorrectAnswers = 0; // Track consecutive correct answers
 
 const items = {
     // upgrades
@@ -66,12 +67,20 @@ function submitAnswer() {
     if (userAnswer === currentQuestion.answer.toLowerCase()) {
         attackOpponent();
         document.getElementById("result").textContent = "✅ Correct! Attack successful.";
+        consecutiveCorrectAnswers++;
+        coins += 10; // Increase coins on correct answer
+        if (consecutiveCorrectAnswers % 3 === 0) {
+            coins += 50; // Bonus for three consecutive correct answers
+            alert("🎉 Bonus! You earned 50 extra coins for three consecutive correct answers!");
+        }
     } else {
         takeDamage();
         document.getElementById("result").textContent = "❌ Incorrect! Opponent attacks.";
+        consecutiveCorrectAnswers = 0; // Reset consecutive correct answers on wrong answer
     }
 
     document.getElementById("next-turn").disabled = false;
+    updateUI(); // Update UI after submitting answer
 }
 
 function attackOpponent() {
@@ -159,6 +168,8 @@ function resetGame() {
     playerMilitary = { 1: 3, 2: 3 };
     playerShield = { 1: 0, 2: 0 }; // Reset shields
     playerDefense = { 1: 0, 2: 0 }; // Reset defenses
+    coins = 100; // Reset coins
+    consecutiveCorrectAnswers = 0; // Reset consecutive correct answers
     currentTurn = 1;
     updateUI();
     askQuestion();
@@ -214,6 +225,7 @@ function applyItemEffect(itemData) {
         default:
             console.error("Unknown effect:", itemData.effect);
     }
+    updateUI(); // Ensure the UI is updated after applying item effect
 }
 
 function increaseDefense(value) {

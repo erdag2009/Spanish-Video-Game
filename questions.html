@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -86,11 +86,11 @@
     <div class="container fade-in">
         <h1>🇪🇸 Practice Spanish Questions 🇪🇸</h1>
         <div id="question-section">
-            <p id="question-text"></p>
+            <p id="question-text">Loading question...</p>
             <input type="text" id="answer" placeholder="Your answer">
             <br>
-            <button class="button" onclick="submitPracticeAnswer()">Submit</button>
-            <button class="button" onclick="newPracticeQuestion()">New Question</button>
+            <button class="button" onclick="submitPracticeAnswer()" aria-label="Submit your answer">Submit</button>
+            <button class="button" onclick="newPracticeQuestion()" aria-label="Get a new practice question">New Question</button>
         </div>
         <p id="result"></p>
     </div>
@@ -100,6 +100,11 @@
         let currentPracticeQuestion = null;
 
         function newPracticeQuestion() {
+            if (!questions || questions.length === 0) {
+                console.error("Questions are not defined or empty.");
+                return;
+            }
+
             const randomIndex = Math.floor(Math.random() * questions.length);
             currentPracticeQuestion = questions[randomIndex];
 

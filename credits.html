@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Game Credits</title>
     <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Garamond&display=swap" rel="stylesheet">
     <style>
         body {
             background-image: url('battle-background.jpg'); /* Add a cool battle-themed background */
@@ -22,6 +23,7 @@
             width: 50%;
             margin: auto;
             margin-top: 50px;
+            animation: fadeIn 2s ease-out forwards; /* Added fade-in animation */
         }
 
         h1 {
@@ -53,22 +55,26 @@
 
         .back-button:hover {
             background: #ff9900;
+            transform: scale(1.1); /* Slightly enlarge the button on hover */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Add a subtle shadow */
         }
 
         /* Fade-in effect */
-        .fade-in {
-            opacity: 0;
-            animation: fadeIn 2s forwards;
-        }
-
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
         }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 600px) {
+            .credits-container {
+                width: 80%; /* Make the credits container more responsive on smaller screens */
+            }
+        }
     </style>
 </head>
 <body>
-    <div class="credits-container fade-in">
+    <div class="credits-container">
         <h1>⚔️ Game Credits ⚔️</h1>
         <ul>
             <li><strong>Game Design:</strong> Aras Erdag & Nate Haselow</li>

@@ -13,6 +13,11 @@ function startGame() {
 }
 
 function askQuestion() {
+    if (!questions || questions.length === 0) {
+        console.error("Questions array is missing or empty.");
+        return;
+    }
+
     const randomIndex = Math.floor(Math.random() * questions.length);
     currentQuestion = questions[randomIndex];
 
@@ -37,8 +42,8 @@ function submitAnswer() {
 function attackOpponent() {
     let damage = playerMilitary[currentTurn] * DAMAGE_PER_MILITARY_UNIT;
 
-
-    if (playerUpgrades[currentTurn].attackBoost) {
+    // Apply attack boost if it exists
+    if (playerUpgrades[currentTurn]?.attackBoost) {
         damage += DAMAGE_BOOST;
     }
 

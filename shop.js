@@ -26,7 +26,11 @@ const items = {
     // Defense + Healing
     trap: { cost: 25, effect: "defense", value: 15, count: 2, description: "15% chance of stopping future enemy attacks" },
     wallRepair: { cost: 30, effect: "defense", value: 20, count: 1, description: "Immediately heal 20%" },
-    shields: { cost: 40, effect: "defense", value: 10, count: 1, description: "Blocks 10% damage for all attacks" }
+    shields: { cost: 40, effect: "defense", value: 10, count: 1, description: "Blocks 10% damage for all attacks" },
+
+    // Health and Shield Items
+    healthPotion: { cost: 30, effect: "health", value: 20 },
+    strongShield: { cost: 50, effect: "shield", value: 20 },
 };
 
 function buyItem(item) {
@@ -52,19 +56,23 @@ function applyItemEffect(itemData) {
         rerollMoves();
     } else if (itemData.effect === "offense") {
         handleOffense(itemData);
+    } else if (itemData.effect === "health") {
+        increaseHealth(itemData.value);
+    } else if (itemData.effect === "shield") {
+        increaseShield(itemData.value);
     }
 }
 
 function increaseDefense(value) {
     defense += value;
     console.log(`Increased defense by ${value}`);
-    document.getElementById("defense").textContent = `Defense: ${defense}`; 
+    document.getElementById("defense").textContent = `Defense: ${defense}`;
 }
 
 function increaseFunds(value) {
     coins += value;
     console.log(`Increased funds by ${value}`);
-    document.getElementById("coinCount").textContent = coins; 
+    document.getElementById("coinCount").textContent = coins;
 }
 
 function rerollMoves() {
@@ -81,10 +89,23 @@ function handleOffense(itemData) {
     }
 }
 
+function increaseHealth(value) {
+    health += value;
+    if (health > 100) health = 100; // Make sure health doesn't exceed 100
+    console.log(`Increased health by ${value}`);
+    document.getElementById("health").textContent = `Health: ${health}`;
+}
+
+function increaseShield(value) {
+    shield += value;
+    console.log(`Shield increased by ${value}`);
+    document.getElementById("shield").textContent = `Shield: ${shield}`;
+}
+
 function updateUI() {
     document.getElementById("coinCount").textContent = coins;
     document.getElementById("militaryCount").textContent = `Military: ${military}`;
     document.getElementById("defense").textContent = `Defense: ${defense}`;
     document.getElementById("health").textContent = `Health: ${health}`;
-    document.getElementById("shield").textContent = `Shield: ${shield}`;  
+    document.getElementById("shield").textContent = `Shield: ${shield}`;
 }

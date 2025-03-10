@@ -95,39 +95,56 @@
 
     <script src="questions.js"></script>
     <script>
-        let currentPracticeQuestion = null;
+        let correctAnswer = "";
 
-        function newPracticeQuestion() {
-            if (!questions || Object.keys(questions).length === 0) {
-                console.error("Questions are not defined or empty.");
-                return;
-            }
+function loadRandomQuestion() {
+    if (!questions) {
+        console.error("Questions are not defined.");
+        return;
+    }
 
-            const categories = Object.keys(questions);
-            const randomCategory = categories[Math.floor(Math.random() * categories.length)];
-            const selectedCategory = questions[randomCategory];
+    const questionContainer = document.getElementById('question-section');
+    const categories = Object.keys(questions);
+    const randomCategory = categories[Math.floor(Math.random() * categories.length)];
+    const selectedCategory = questions[randomCategory];
 
-            const randomIndex = Math.floor(Math.random() * selectedCategory.length);
-            currentPracticeQuestion = selectedCategory[randomIndex];
+    const randomIndex = Math.floor(Math.random() * selectedCategory.length);
+    const currentQuestion = selectedCategory[randomIndex];
 
-            document.getElementById("question-text").textContent = currentPracticeQuestion.question;
-            document.getElementById("result").textContent = "";
-            document.getElementById("answer").value = "";
-        }
+    // Store the correct answer globally
+    correctAnswer = currentQuestion.answer.trim().toLowerCase();
 
-        function submitPracticeAnswer() {
-            const userAnswer = document.getElementById("answer").value.trim().toLowerCase();
-            if (userAnswer === currentPracticeQuestion.answer.toLowerCase()) {
-                document.getElementById("result").textContent = "✅ Correcto!";
-                document.getElementById("result").style.color = "lightgreen";
-                setTimeout(newPracticeQuestion, 1000);
-            } else {
-                document.getElementById("result").textContent = "❌ Incorrect. Try again!";
-                document.getElementById("result").style.color = "red";
-            }
-        }
+    questionContainer.innerHTML = `
+        <h2>${randomCategory.charAt(0).toUpperCase() + randomCategory.slice(1)} Question</h2>
+        <p id="question-text"><strong>Q:</strong> ${currentQuestion.question}</p>
+        <input type="text" id="user-answer" placeholder="Type your answer here">
+        <button onclick="checkAnswer()">Submit</button>
+        <p id="result"></p>
+    `;
+}
 
-        document.addEventListener("DOMContentLoaded", newPracticeQuestion);
-    </script>
+function normalizeString(str) {
+    return str
+        .normalize("NFD") // Normalize accented characters
+        .replace(/[\u0300-\u036f]/g, "") // Remove diacritics
+        .trim()
+        .toLowerCase();
+}
+
+function checkAnswer() {
+    const userInput = normalizeString(document.getElementById('user-answer').value);
+    const correctNormalized = normalizeString(correctAnswer);
+    const resultText = document.getElementById('result');
+
+    if (userInput === correctNormalized) {
+        resultText.textContent = "✅ Correcto!";
+        resultText.style.color = "lightgreen";
+        setTimeout(loadRandomQuestion, 1000);
+    } else {
+        resultText.textContent = "❌ Incorrecto. Intentar Otra Vez!";
+        resultText.style.color = "red";
+    }
+}
+</script>
 </body>
 </html>

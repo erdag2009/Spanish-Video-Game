@@ -57,13 +57,15 @@ function loadRandomQuestion() {
         <h2>${randomCategory.charAt(0).toUpperCase() + randomCategory.slice(1)} Question</h2>
         <p id="question-text"><strong>Q:</strong> ${currentQuestion.question}</p>
         <input type="text" id="user-answer" placeholder="Type your answer here">
-        <button onclick="checkAnswer('${currentQuestion.answer.toLowerCase()}')">Submit</button>
+        <button onclick="checkAnswer()">Submit</button>
+        <input type="hidden" id="correct-answer" value="${currentQuestion.answer}">
         <p id="result"></p>
     `;
 }
 
-function checkAnswer(correctAnswer) {
+function checkAnswer() {
     const userInput = document.getElementById('user-answer').value.trim().toLowerCase();
+    const correctAnswer = document.getElementById('correct-answer').value.trim().toLowerCase();
     const resultText = document.getElementById('result');
 
     if (userInput === correctAnswer) {

@@ -98,13 +98,17 @@
         let currentPracticeQuestion = null;
 
         function newPracticeQuestion() {
-            if (!questions || questions.length === 0) {
+            if (!questions || Object.keys(questions).length === 0) {
                 console.error("Questions are not defined or empty.");
                 return;
             }
 
-            const randomIndex = Math.floor(Math.random() * questions.length);
-            currentPracticeQuestion = questions[randomIndex];
+            const categories = Object.keys(questions);
+            const randomCategory = categories[Math.floor(Math.random() * categories.length)];
+            const selectedCategory = questions[randomCategory];
+
+            const randomIndex = Math.floor(Math.random() * selectedCategory.length);
+            currentPracticeQuestion = selectedCategory[randomIndex];
 
             document.getElementById("question-text").textContent = currentPracticeQuestion.question;
             document.getElementById("result").textContent = "";
@@ -114,7 +118,7 @@
         function submitPracticeAnswer() {
             const userAnswer = document.getElementById("answer").value.trim().toLowerCase();
             if (userAnswer === currentPracticeQuestion.answer.toLowerCase()) {
-                document.getElementById("result").textContent = "✅ Correct!";
+                document.getElementById("result").textContent = "✅ Correcto!";
                 document.getElementById("result").style.color = "lightgreen";
                 setTimeout(newPracticeQuestion, 1000);
             } else {

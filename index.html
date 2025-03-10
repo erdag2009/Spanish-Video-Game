@@ -18,6 +18,34 @@
             <a href="credits.html" aria-label="Ver créditos del juego">🏅 Créditos</a>
         </div>
     </div>
+
+    <!-- Background Music -->
+    <audio id="bg-music" loop>
+        <source src="music/SpanishSoundtrack.mp3" type="audio/mpeg">
+    </audio>
+
+    
+    <button id="play-music-btn">🎵 Play Music</button>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const audio = document.getElementById("bg-music");
+            const playButton = document.getElementById("play-music-btn");
+
+            
+            playButton.style.display = "none";
+
+            // Try to play automatically
+            audio.play().catch(() => {
+                playButton.style.display = "block";
+                playButton.addEventListener("click", function() {
+                    audio.play();
+                    playButton.style.display = "none"; 
+                });
+            });
+        });
+    </script>
+    
     <script src="script.js"></script> 
 </body>
 </html>

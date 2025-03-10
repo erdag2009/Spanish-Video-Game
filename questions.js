@@ -8,24 +8,24 @@ const questions = {
         { question: "Escribe ‘Quiero’ en inglés, incluso el sujeto.", answer: "I want" }
     ],
     verbs: [
-        { question: "Saber o Conocer? ‘Yo _____ la población de China.’", answer: "Saber / Sabo" },
-        { question: "Escribe ‘Venimos’ en inglés, incluso el sujeto.", answer: "We come" },
-        { question: "Use hacer in the present perfect form in this sentence: _____ muchas personas en el evento anoche.", answer: "Han" },
+        { question: "Saber o Conocer? ‘Yo _____ la población de China.’", answer: "saber" },
+        { question: "Escribe ‘Venimos’ en inglés, incluso el sujeto.", answer: "we come" },
+        { question: "Use hacer in the present perfect form in this sentence: _____ muchas personas en el evento anoche.", answer: "han" },
         { question: "Cumple la frase: ‘Yo desayuno ___ de almorzar.’", answer: "antes" },
         { question: "Cumplir la frase: Me _____ la música pop. (I love pop music)", answer: "encanta" },
-        { question: "Complete the question using conocer in the correct form: ___ tu a alguien que hable tres idiomas?", answer: "Conoces" }
+        { question: "Complete the question using conocer in the correct form: ___ tu a alguien que hable tres idiomas?", answer: "conoces" }
     ],
     conversational: [
         { question: "Complete the sentence to make it passive: Los limones __ ____ aquí.", answer: "son vendidos" },
         { question: "Complete the sentence using dar in the correct form: Mi profesor me ____ una buena nota.", answer: "da" },
-        { question: "Complete the negative sentence: No ____ Moana (mirar)", answer: "mira" },
+        { question: "Complete the negative sentence: No ____ Moana (mirar)", answer: "mires" },
         { question: "Complete the sentence using traer in the correct form: Me ___ una botella de agua.", answer: "trae" },
-        { question: "How can you say ‘Don’t watch Moana’", answer: "No mires Moana" },
-        { question: "Complete the question using poder in the correct form: ___ tu venir a mi fiesta?", answer: "Puedes" },
-        { question: "Complete the affirmative sentence: ____ tu cena (comer)", answer: "Come" },
+        { question: "How can you say ‘Don’t watch Moana’", answer: "no mires moana" },
+        { question: "Complete the question using poder in the correct form: ___ tu venir a mi fiesta?", answer: "puedes" },
+        { question: "Complete the affirmative sentence: ____ tu cena (comer)", answer: "come" },
         { question: "Complete the sentence using the correct form of ser or estar: Mi madre ___ en nuestra casa", answer: "está" },
         { question: "Complete this sentence with por or para: Compre esta pizza ___ 10 dolares", answer: "por" },
-        { question: "Complete the question with the correct ir form: ____ ustedes al cine mañana?", answer: "Van" }
+        { question: "Complete the question with the correct ir form: ____ ustedes al cine mañana?", answer: "van" }
     ]
 };
 
@@ -34,6 +34,11 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function loadRandomQuestion() {
+    if (!questions) {
+        console.error("Questions are not defined.");
+        return;
+    }
+
     const questionContainer = document.getElementById('question-section');
     const categories = Object.keys(questions);
     const randomCategory = categories[Math.floor(Math.random() * categories.length)];
@@ -56,11 +61,11 @@ function checkAnswer(correctAnswer) {
     const resultText = document.getElementById('result');
 
     if (userInput === correctAnswer) {
-        resultText.textContent = "✅ Correct!";
+        resultText.textContent = "✅ Correcto!";
         resultText.style.color = "lightgreen";
         setTimeout(loadRandomQuestion, 1000);
     } else {
-        resultText.textContent = "❌ Incorrect. Try again!";
+        resultText.textContent = "❌ Incorrecto. Intentar Otra Vez!";
         resultText.style.color = "red";
     }
 }

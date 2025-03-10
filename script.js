@@ -151,7 +151,7 @@ function searchForPlayers() {
         document.getElementById("searching").style.display = "none";
         opponentReady = true;
         askQuestion();
-    }, 2000); // Simulate delay in matching
+    }, 2000);
 }
 
 function askQuestion() {

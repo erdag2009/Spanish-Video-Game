@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Practice Questions</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="images/favicon (1).ico" type="image/x-icon"/>
     <style>
         body {
             background-size: cover;
@@ -92,59 +93,64 @@
         </div>
         <p id="result"></p>
     </div>
-
+    <audio id="questions-music" src="music/questions.mp3" loop></audio>
     <script src="questions.js"></script>
     <script>
         let correctAnswer = "";
 
-function loadRandomQuestion() {
-    if (!questions) {
-        console.error("Questions are not defined.");
-        return;
-    }
+        function loadRandomQuestion() {
+            if (!questions) {
+                console.error("Questions are not defined.");
+                return;
+            }
 
-    const questionContainer = document.getElementById('question-section');
-    const categories = Object.keys(questions);
-    const randomCategory = categories[Math.floor(Math.random() * categories.length)];
-    const selectedCategory = questions[randomCategory];
+            const questionContainer = document.getElementById('question-section');
+            const categories = Object.keys(questions);
+            const randomCategory = categories[Math.floor(Math.random() * categories.length)];
+            const selectedCategory = questions[randomCategory];
 
-    const randomIndex = Math.floor(Math.random() * selectedCategory.length);
-    const currentQuestion = selectedCategory[randomIndex];
+            const randomIndex = Math.floor(Math.random() * selectedCategory.length);
+            const currentQuestion = selectedCategory[randomIndex];
 
-    // Store the correct answer globally
-    correctAnswer = currentQuestion.answer.trim().toLowerCase();
+            // Store the correct answer globally
+            correctAnswer = currentQuestion.answer.trim().toLowerCase();
 
-    questionContainer.innerHTML = `
-        <h2>${randomCategory.charAt(0).toUpperCase() + randomCategory.slice(1)} Question</h2>
-        <p id="question-text"><strong>Q:</strong> ${currentQuestion.question}</p>
-        <input type="text" id="user-answer" placeholder="Type your answer here">
-        <button onclick="checkAnswer()">Submit</button>
-        <p id="result"></p>
-    `;
-}
+            questionContainer.innerHTML = `
+                <h2>${randomCategory.charAt(0).toUpperCase() + randomCategory.slice(1)} Question</h2>
+                <p id="question-text"><strong>Q:</strong> ${currentQuestion.question}</p>
+                <input type="text" id="user-answer" placeholder="Type your answer here">
+                <button onclick="checkAnswer()">Submit</button>
+                <p id="result"></p>
+    `       ;
+        }
 
-function normalizeString(str) {
-    return str
-        .normalize("NFD") // Normalize accented characters
-        .replace(/[\u0300-\u036f]/g, "") // Remove diacritics
-        .trim()
-        .toLowerCase();
-}
+        function normalizeString(str) {
+            return str
+                .normalize("NFD") // Normalize accented characters
+                .replace(/[\u0300-\u036f]/g, "") // Remove diacritics
+                .trim()
+                .toLowerCase();
+        }
 
-function checkAnswer() {
-    const userInput = normalizeString(document.getElementById('user-answer').value);
-    const correctNormalized = normalizeString(correctAnswer);
-    const resultText = document.getElementById('result');
+        function checkAnswer() {
+            const userInput = normalizeString(document.getElementById('user-answer').value);
+            const correctNormalized = normalizeString(correctAnswer);
+            const resultText = document.getElementById('result');
 
-    if (userInput === correctNormalized) {
-        resultText.textContent = "✅ Correcto!";
-        resultText.style.color = "lightgreen";
-        setTimeout(loadRandomQuestion, 1000);
-    } else {
-        resultText.textContent = "❌ Incorrecto. Intentar Otra Vez!";
-        resultText.style.color = "red";
-    }
-}
-</script>
+            if (userInput === correctNormalized) {
+                resultText.textContent = "✅ Correcto!";
+                resultText.style.color = "lightgreen";
+                setTimeout(loadRandomQuestion, 1000);
+            } else {
+                resultText.textContent = "❌ Incorrecto. Intentar Otra Vez!";
+                resultText.style.color = "red";
+            }
+        }
+
+        window.onload = function() {
+            const questionsMusic = document.getElementById('questions-music');
+            questionsMusic.play();
+        }
+    </script>
 </body>
 </html>

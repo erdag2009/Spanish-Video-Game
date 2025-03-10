@@ -73,7 +73,7 @@ function checkAnswer() {
         resultText.style.color = "lightgreen";
         setTimeout(loadRandomQuestion, 1000);
     } else {
-        resultText.textContent = "❌ Incorrecto. Intentar Otra Vez!";
+        resultText.textContent = "❌ Incorrecto. ¡Intentar Otra Vez!";
         resultText.style.color = "red";
     }
 }

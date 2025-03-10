@@ -7,6 +7,7 @@
     <meta name="keywords" content="Juego de Guerra, estrategia, juego, multijugador, jugador único">
     <title>Juego de Guerra</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="favicon.ico" type="image/x-icon"> <!-- Add favicon -->
 
     <style>
         #dots {
@@ -118,6 +119,7 @@
     <script>
         let ws;
         const warMusic = new Audio('music/war.mp3'); // Adding the war.mp3 music
+        warMusic.loop = true; // Ensure the music loops
 
         // Function to start multiplayer and show loading screen
         function startMultiplayer() {
@@ -145,11 +147,13 @@
                 }
                 if (message.type === 'waiting') {
                     console.log('Waiting for an opponent...');
+                    document.getElementById("searching").style.display = "block"; // Show searching screen
                 }
                 if (message.type === 'gameState') {
                     // Handle game state updates here
                     console.log('Game state update:', message);
                     // Update the game state based on the message received
+                    updateGameState(message);
                 }
             };
 
@@ -170,11 +174,29 @@
 
             // Initialize singleplayer game logic here
             alert("Singleplayer mode started!");
+            askQuestion();
         }
 
         // Add event listeners to the buttons
         document.querySelector(".multiplayer-button").addEventListener("click", startMultiplayer);
         document.querySelector(".singleplayer-button").addEventListener("click", startSinglePlayer);
+
+        function updateGameState(message) {
+            // Update the game state based on the message received
+            playerHealth[1] = message.playerHealth[1];
+            playerHealth[2] = message.playerHealth[2];
+            playerMilitary[1] = message.playerMilitary[1];
+            playerMilitary[2] = message.playerMilitary[2];
+            coins = message.coins;
+            currentTurn = message.currentTurn;
+            playerShield[1] = message.playerShield[1];
+            playerShield[2] = message.playerShield[2];
+            playerDefense[1] = message.playerDefense[1];
+            playerDefense[2] = message.playerDefense[2];
+            consecutiveCorrectAnswers = message.consecutiveCorrectAnswers;
+
+            updateUI();
+        }
     </script>
 </body>
 </html>

@@ -279,142 +279,60 @@ function takeDamage() {
     });
 }
 
+function updateUI() {
+    document.getElementById("player1-health").textContent = playerHealth[1] + "%";
+    document.getElementById("player2-health").textContent = playerHealth[2] + "%";
+    document.getElementById("player1-military").textContent = "Military: " + playerMilitary[1];
+    document.getElementById("player2-military").textContent = "Military: " + playerMilitary[2];
+    document.getElementById("coins").textContent = "Coins: " + coins;
+    document.getElementById("player1-shield").textContent = "Shield: " + playerShield[1];
+    document.getElementById("player2-shield").textContent = "Shield: " + playerShield[2];
+    document.getElementById("player1-defense").textContent = "Defense: " + playerDefense[1];
+    document.getElementById("player2-defense").textContent = "Defense: " + playerDefense[2];
+
+    const turnMessage = isSinglePlayer ? `Your Turn (Turn ${currentTurn})` : `Multiplayer Turn ${currentTurn}`;
+    document.getElementById("turn-message").textContent = turnMessage;
+}
+
 function applyDefense(player, damage) {
     if (playerDefense[player] > 0) {
-        const reducedDamage = damage * (1 - (playerDefense[player] / 100));
-        return reducedDamage;
+        const defenseReduction = playerDefense[player] / 100;
+        damage -= damage * defenseReduction;
     }
     return damage;
 }
 
 function applyShield(player, damage) {
     if (playerShield[player] > 0) {
-        const shieldReduction = damage * (playerShield[player] / 100);
-        return damage - shieldReduction;
+        damage -= playerShield[player];
     }
     return damage;
 }
 
 function checkGameOver() {
-    if (playerHealth[1] <= 0 || playerHealth[2] <= 0) {
-        displayGameOver();
-    }
-}
-
-function displayGameOver() {
     if (playerHealth[1] <= 0) {
-        alert("Player 2 wins!");
+        alert("Game Over! Player 2 wins!");
     } else if (playerHealth[2] <= 0) {
-        alert("Player 1 wins!");
+        alert("Game Over! Player 1 wins!");
     }
-    window.location.reload(); // reload page to reset the game
-}
-
-function updateUI() {
-    document.getElementById("player-health").textContent = `Player 1 Health: ${playerHealth[1]}%`;
-    document.getElementById("opponent-health").textContent = `Player 2 Health: ${playerHealth[2]}%`;
-    document.getElementById("coins").textContent = `Coins: ${coins}`;
-    document.getElementById("turn").textContent = `Turn: ${currentTurn}`;
-
-    document.getElementById("items").textContent = `Items: ${JSON.stringify(items)}`;
-
-    // Update defense and shield statuses
-    document.getElementById("shield-status").textContent = `Shield: ${playerShield[currentTurn]}%`;
-    document.getElementById("defense-status").textContent = `Defense: ${playerDefense[currentTurn]}%`;
 }
 
 function sendMessage(message) {
-    const chatBox = document.getElementById("chatBox");
-    const messageElement = document.createElement("p");
-    messageElement.textContent = `Message: ${JSON.stringify(message)}`;
-    chatBox.appendChild(messageElement);
+    console.log("Sending game state update:", message);
 }
 
-function buyItem(item) {
-    const itemData = items[item];
-    if (coins >= itemData.cost) {
-        coins -= itemData.cost;
-        applyItemEffect(itemData);
+function buyItem(itemName) {
+    const item = items[itemName];
+    if (coins >= item.cost) {
+        coins -= item.cost;
+        if (item.effect === "military") {
+            playerMilitary[currentTurn] += item.value;
+        } else if (item.effect === "funds") {
+            // This will automatically update coins in future turns
+            alert(item.description);
+        }
         updateUI();
-        alert(`${item} bought!`);
     } else {
-        alert("Not enough coins.");
+        alert("Not enough coins!");
     }
-}
-
-function applyItemEffect(itemData) {
-    let opponent = currentTurn === 1 ? 2 : 1;
-    switch(itemData.effect) {
-        case "military":
-            playerMilitary[currentTurn] += itemData.value;
-            break;
-        case "defense":
-            increaseDefense(itemData.value);
-            break;
-        case "funds":
-            increaseFunds(itemData.value);
-            break;
-        case "reroll":
-            rerollMoves();
-            break;
-        case "offense":
-            handleOffense(itemData);
-            break;
-        case "health":
-            increaseHealth(itemData.value);
-            break;
-        case "shield":
-            increaseShield(itemData.value);
-            break;
-        case "offense":
-            if (itemData.value === 20) {
-                playerHealth[opponent] = Math.max(0, playerHealth[opponent] - (playerHealth[opponent] * 0.2));
-            } else if (itemData.value === 0) {
-                playerHealth[opponent] = Math.max(0, playerHealth[opponent] / 2);
-            }
-            break;
-        default:
-            console.error("Unknown effect:", itemData.effect);
-    }
-    updateUI(); // Ensure the UI is updated after applying item effect
-}
-
-function increaseDefense(value) {
-    playerDefense[currentTurn] += value;
-    console.log(`Increased defense by ${value}`);
-    document.getElementById(`defense${currentTurn}`).textContent = `Defense: ${playerDefense[currentTurn]}%`;
-}
-
-function increaseFunds(value) {
-    coins += value;
-    console.log(`Increased funds by ${value}`);
-    document.getElementById("coinCount").textContent = `Coins: ${coins}`;
-}
-
-function rerollMoves() {
-    console.log("Rerolling move options");
-}
-
-function handleOffense(itemData) {
-    if (itemData.count > 0) {
-        itemData.count -= 1; // Decrease the count of available uses
-        alert(`${itemData.description}`);
-        console.log(`Offense item used: ${itemData.description}. Uses left: ${itemData.count}`);
-        updateUI(); // Ensure the UI is updated after using an offense item
-    } else {
-        alert(`No uses left for ${itemData.description}`);
-    }
-}
-
-function increaseHealth(value) {
-    playerHealth[currentTurn] += value;
-    if (playerHealth[currentTurn] > 100) playerHealth[currentTurn] = 100; // Ensure health doesn't exceed 100
-    console.log(`Increased health by ${value}`);
-    document.getElementById(`health${currentTurn}`).textContent = playerHealth[currentTurn];
-}
-
-function increaseShield(value) {
-    playerShield[currentTurn] += value;
-    console.log(`Shield increased by ${value}`);
-    document.getElementById(`shield${currentTurn}`).textContent = `Shield: ${playerShield[currentTurn]}%`;
 }

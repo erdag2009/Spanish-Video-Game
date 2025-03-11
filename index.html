@@ -22,10 +22,12 @@
 
     <!-- Background Music -->
     <audio id="bg-music" loop>
-        <source src="music/SpanishSoundtrack.mp3" type="audio/mpeg">
+        <source src="music/intro.mp3" type="audio/mpeg">
     </audio>
 
-    
+    <!-- Ticking Sound -->
+    <audio id="tick-sound" src="music/tick.mp3"></audio> <!-- Add audio element for ticking sound -->
+
     <button id="play-music-btn">🎵 Play Music</button>
 
     <script>
@@ -33,7 +35,6 @@
             const audio = document.getElementById("bg-music");
             const playButton = document.getElementById("play-music-btn");
 
-            
             playButton.style.display = "none";
 
             // Try to play automatically
@@ -43,6 +44,18 @@
                     audio.play();
                     playButton.style.display = "none"; 
                 });
+            });
+
+            // Function to play the ticking sound
+            function playTickSound() {
+                const tickSound = document.getElementById('tick-sound');
+                tickSound.currentTime = 0; // Reset the audio to the start
+                tickSound.play();
+            }
+
+            // Add event listeners to all menu links for the hover effect
+            document.querySelectorAll('.menu a').forEach(link => {
+                link.addEventListener('mouseover', playTickSound);
             });
         });
     </script>

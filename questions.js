@@ -69,7 +69,7 @@ function checkAnswer() {
     const resultText = document.getElementById('result');
 
     if (userInput === correctAnswer) {
-        resultText.textContent = "✅ Correcto!";
+        resultText.textContent = "✅ ¡Correcto!";
         resultText.style.color = "lightgreen";
         setTimeout(loadRandomQuestion, 1000);
     } else {
